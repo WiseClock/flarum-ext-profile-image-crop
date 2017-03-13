@@ -4,10 +4,15 @@ import app from 'flarum/app';
 
 export default class ProfileImageCropModal extends Modal
 {
+    constructor(imgData)
+    {
+        super();
+        this.data = imgData;
+    }
+
     init()
     {
         super.init();
-        this.data = app.forum.wiseclock_upload_avatar();
     }
 
     className()

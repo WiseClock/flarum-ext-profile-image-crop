@@ -14,16 +14,17 @@ System.register('wiseclock/flarum-ext-profile-image-crop/components/ProfileImage
             ProfileImageCropModal = (function (_Modal) {
                 babelHelpers.inherits(ProfileImageCropModal, _Modal);
 
-                function ProfileImageCropModal() {
+                function ProfileImageCropModal(imgData) {
                     babelHelpers.classCallCheck(this, ProfileImageCropModal);
-                    babelHelpers.get(Object.getPrototypeOf(ProfileImageCropModal.prototype), 'constructor', this).apply(this, arguments);
+
+                    babelHelpers.get(Object.getPrototypeOf(ProfileImageCropModal.prototype), 'constructor', this).call(this);
+                    this.data = imgData;
                 }
 
                 babelHelpers.createClass(ProfileImageCropModal, [{
                     key: 'init',
                     value: function init() {
                         babelHelpers.get(Object.getPrototypeOf(ProfileImageCropModal.prototype), 'init', this).call(this);
-                        this.data = app.forum.wiseclock_upload_avatar();
                     }
                 }, {
                     key: 'className',
@@ -192,8 +193,7 @@ System.register('wiseclock/flarum-ext-profile-image-crop/main', ['flarum/extend'
                                 var file = $(e.target)[0].files[0];
                                 var reader = new FileReader();
                                 reader.addEventListener("load", function () {
-                                    app.forum.wiseclock_upload_avatar = m.prop(reader.result);
-                                    var modal = new ProfileImageCropModal();
+                                    var modal = new ProfileImageCropModal(reader.result);
 
                                     var arrayReader = new FileReader();
                                     arrayReader.onloadend = function (x) {

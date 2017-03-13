@@ -22,8 +22,7 @@ app.initializers.add('wiseclock-profile-image-crop', function()
                 let reader  = new FileReader();
                 reader.addEventListener("load", function()
                 {
-                    app.forum.wiseclock_upload_avatar = m.prop(reader.result);
-                    let modal = new ProfileImageCropModal();
+                    let modal = new ProfileImageCropModal(reader.result);
 
                     let arrayReader = new FileReader();
                     arrayReader.onloadend = function(x)
