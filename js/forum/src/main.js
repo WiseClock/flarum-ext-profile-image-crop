@@ -48,7 +48,7 @@ app.initializers.add('wiseclock-profile-image-crop', function()
                             default:
                                 break;
                         }
-                        if (header.toLowerCase().substring(0, 4) == '4242d')
+                        if (header.toLowerCase().substring(0, 4) == '424d')
                             modal.supported = true; // bmp
                     };
                     arrayReader.readAsArrayBuffer(file);

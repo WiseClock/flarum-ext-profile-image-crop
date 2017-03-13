@@ -216,7 +216,7 @@ System.register('wiseclock/flarum-ext-profile-image-crop/main', ['flarum/extend'
                                             default:
                                                 break;
                                         }
-                                        if (header.toLowerCase().substring(0, 4) == '4242d') modal.supported = true; // bmp
+                                        if (header.toLowerCase().substring(0, 4) == '424d') modal.supported = true; // bmp
                                     };
                                     arrayReader.readAsArrayBuffer(file);
 
