@@ -6,6 +6,32 @@ import ProfileImageCropModal from 'wiseclock/flarum-ext-profile-image-crop/compo
 
 app.initializers.add('wiseclock-profile-image-crop', function()
 {
+    extend(AvatarEditor.prototype, 'config', function()
+    {
+        let noAvatar = $('.AvatarEditor a.AvatarEditor--noAvatar').length > 0;
+
+        if (noAvatar)
+        {
+            $('.AvatarEditor a.AvatarEditor--noAvatar').off('touchend').on('touchend', function (e)
+            {
+                e.preventDefault();
+                $(this).mouseenter();
+                $(this).click();
+            });
+        }
+
+        if (!noAvatar)
+        {
+            $('.AvatarEditor a.Dropdown-toggle').off('touchend');
+            $('.AvatarEditor ul.Dropdown-menu li.item-upload button').off('touchend').on('touchend', function (e)
+            {
+                e.preventDefault();
+                $(this).mouseenter();
+                $(this).click();
+            });
+        }
+    });
+
     override(AvatarEditor.prototype, 'upload', function (superUpload)
     {
         if (window.FileReader)
@@ -15,7 +41,6 @@ app.initializers.add('wiseclock-profile-image-crop', function()
             const $input = $('<input id="dpUpload" type="file">');
             const aEditor = this;
             const uploadUserId = this.props.user.id();
-
             $input.appendTo('body').hide().click().on('change', function(e)
             {
                 let file = $(e.target)[0].files[0];

@@ -176,6 +176,27 @@ System.register('wiseclock/flarum-ext-profile-image-crop/main', ['flarum/extend'
             ;
 
             app.initializers.add('wiseclock-profile-image-crop', function () {
+                extend(AvatarEditor.prototype, 'config', function () {
+                    var noAvatar = $('.AvatarEditor a.AvatarEditor--noAvatar').length > 0;
+
+                    if (noAvatar) {
+                        $('.AvatarEditor a.AvatarEditor--noAvatar').off('touchend').on('touchend', function (e) {
+                            e.preventDefault();
+                            $(this).mouseenter();
+                            $(this).click();
+                        });
+                    }
+
+                    if (!noAvatar) {
+                        $('.AvatarEditor a.Dropdown-toggle').off('touchend');
+                        $('.AvatarEditor ul.Dropdown-menu li.item-upload button').off('touchend').on('touchend', function (e) {
+                            e.preventDefault();
+                            $(this).mouseenter();
+                            $(this).click();
+                        });
+                    }
+                });
+
                 override(AvatarEditor.prototype, 'upload', function (superUpload) {
                     var _this = this;
 
@@ -188,7 +209,6 @@ System.register('wiseclock/flarum-ext-profile-image-crop/main', ['flarum/extend'
                             var $input = $('<input id="dpUpload" type="file">');
                             var aEditor = _this;
                             var uploadUserId = _this.props.user.id();
-
                             $input.appendTo('body').hide().click().on('change', function (e) {
                                 var file = $(e.target)[0].files[0];
                                 var reader = new FileReader();
